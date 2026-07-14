@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinTrack | Dashboard de Finanzas Personales</title>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Pantalla de Login -->
+  <div id="login-screen" class="login-screen hidden">
+    <div class="login-card">
+      <div class="login-header">
+        <svg class="login-logo" width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="18" height="18" rx="5" fill="url(#loginBrandGradient)" />
+          <path d="M12 7V17M12 7L9 10M12 7L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 14L10 17H14L17 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+          <defs>
+            <linearGradient id="loginBrandGradient" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6366f1" />
+              <stop offset="1" stop-color="#4f46e5" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <h2>Acceso a FinTrack</h2>
+        <p>Inicia sesión en tu banca personal digital</p>
+      </div>
+
+      <div class="login-tabs">
+        <button type="button" class="login-tab active" id="tab-login">Iniciar Sesión</button>
+        <button type="button" class="login-tab" id="tab-register">Crearse una Cuenta</button>
+      </div>
+
+      <!-- Formulario de Login -->
+      <form id="login-form" class="login-form" novalidate>
+        <div class="form-group">
+          <label for="login-username" class="form-label">Nombre de Usuario</label>
+          <div class="input-with-icon">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <input type="text" id="login-username" placeholder="Ej. alejandrosanz" required autocomplete="off">
+          </div>
+          <span class="error-message" id="login-username-error">El nombre de usuario es requerido</span>
+        </div>
+        <div class="form-group">
+          <label for="login-password" class="form-label">Contraseña</label>
+          <div class="input-with-icon">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input type="password" id="login-password" placeholder="••••••••" required autocomplete="off">
+          </div>
+          <span class="error-message" id="login-password-error">La contraseña es requerida</span>
+          <div class="forgot-password-wrapper">
+            <a href="#" id="link-forgot-password" class="forgot-password-link">¿Olvidaste tu contraseña?</a>
+          </div>
+        </div>
+        <div class="error-message general-error" id="login-general-error"></div>
+        <button type="submit" class="btn-primary">
+          <span>Acceder al Portal</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <line x1="12" y1="5" x2="19" y2="12" />
+          </svg>
+        </button>
+      </form>
+
+      <!-- Formulario de Registro -->
+      <form id="register-form" class="login-form hidden" novalidate>
+        <div class="form-group">
+          <label for="register-username" class="form-label">Nombre de Usuario</label>
+          <div class="input-with-icon">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <input type="text" id="register-username" placeholder="Ej. alejandrosanz" required autocomplete="off">
+          </div>
+          <span class="error-message" id="register-username-error">El nombre de usuario es requerido</span>
+        </div>
+        <div class="form-group">
+          <label for="register-email" class="form-label">Correo Electrónico</label>
+          <div class="input-with-icon">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <input type="email" id="register-email" placeholder="ejemplo@fintrack.es" required autocomplete="off">
+          </div>
+          <span class="error-message" id="register-email-error">Ingresa un correo electrónico válido</span>
+        </div>
+        <div class="form-group">
+          <label for="register-password" class="form-label">Contraseña</label>
+          <div class="input-with-icon">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input type="password" id="register-password" placeholder="••••••••" required autocomplete="off">
+          </div>
+          <span class="error-message" id="register-password-error">La contraseña es requerida</span>
+        </div>
+        <div class="form-group">
+          <label for="register-confirm-password" class="form-label">Confirmar Contraseña</label>
+          <div class="input-with-icon">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input type="password" id="register-confirm-password" placeholder="••••••••" required autocomplete="off">
+          </div>
+          <span class="error-message" id="register-confirm-password-error">Las contraseñas deben coincidir</span>
+        </div>
+        <div class="error-message general-error" id="register-general-error"></div>
+        <button type="submit" class="btn-primary">
+          <span>Crear Cuenta</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <line x1="12" y1="5" x2="19" y2="12" />
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <!-- Tarjeta de Recuperación -->
+    <div class="login-card hidden" id="recovery-card">
+      <div class="login-header">
+        <svg class="login-logo" width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="18" height="18" rx="5" fill="url(#loginBrandGradient)" />
+          <path d="M12 7V17M12 7L9 10M12 7L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 14L10 17H14L17 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+        </svg>
+        <h2>Recuperar Contraseña</h2>
+        <p>Restablece el acceso a tu cuenta bancaria</p>
+      </div>
+
+      <!-- Paso 1: Introducir Email -->
+      <div id="recovery-step-email">
+        <form id="recovery-email-form" class="login-form" novalidate>
+          <div class="form-group">
+            <label for="recovery-email" class="form-label">Correo Electrónico</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              <input type="email" id="recovery-email" placeholder="ejemplo@fintrack.es" required autocomplete="off">
+            </div>
+            <span class="error-message" id="recovery-email-error">El correo electrónico es requerido</span>
+          </div>
+          <div class="error-message general-error" id="recovery-email-general-error"></div>
+          <button type="submit" class="btn-primary">
+            <span>Enviar código de recuperación</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Paso 2: Introducir Código (oculto al inicio) -->
+      <div id="recovery-step-code" class="hidden">
+        <form id="recovery-code-form" class="login-form" novalidate>
+          <div class="form-group">
+            <label for="recovery-code" class="form-label">Código de 4 dígitos</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <input type="text" id="recovery-code" maxlength="4" placeholder="Ej. 1234" required autocomplete="off">
+            </div>
+            <span class="error-message" id="recovery-code-error">El código introducido no es válido</span>
+          </div>
+          <div class="error-message general-error" id="recovery-code-general-error"></div>
+          <button type="submit" class="btn-primary">
+            <span>Verificar código</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Paso 3: Introducir Nueva Contraseña (oculto al inicio) -->
+      <div id="recovery-step-password" class="hidden">
+        <form id="recovery-password-form" class="login-form" novalidate>
+          <div class="form-group">
+            <label for="recovery-new-password" class="form-label">Nueva Contraseña</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <input type="password" id="recovery-new-password" placeholder="••••••••" required autocomplete="off">
+            </div>
+            <span class="error-message" id="recovery-new-password-error">La contraseña es requerida</span>
+          </div>
+          <div class="form-group">
+            <label for="recovery-confirm-password" class="form-label">Confirmar Nueva Contraseña</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <input type="password" id="recovery-confirm-password" placeholder="••••••••" required autocomplete="off">
+            </div>
+            <span class="error-message" id="recovery-confirm-password-error">Las contraseñas deben coincidir</span>
+          </div>
+          <div class="error-message general-error" id="recovery-password-general-error"></div>
+          <button type="submit" class="btn-primary">
+            <span>Guardar Contraseña</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="recovery-footer" style="text-align: center; margin-top: 1.5rem;">
+        <a href="#" id="link-back-to-login" style="font-size: 0.875rem; color: var(--text-light); text-decoration: none; transition: color var(--transition-fast);">Volver al Login</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-container">
+    
+    <!-- Sidebar / Menú Lateral -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <!-- FinTrack Logo SVG -->
+        <svg class="brand-logo" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="18" height="18" rx="5" fill="url(#brandGradient)" />
+          <path d="M12 7V17M12 7L9 10M12 7L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 14L10 17H14L17 14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+          <defs>
+            <linearGradient id="brandGradient" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6366f1" />
+              <stop offset="1" stop-color="#4f46e5" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="brand-name">FinTrack</span>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="nav-menu">
+        <ul>
+          <li class="nav-item active" data-view="dashboard">
+            <a href="#">
+              <!-- Home/Grid Icon -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="9" rx="1" />
+                <rect x="14" y="3" width="7" height="5" rx="1" />
+                <rect x="14" y="12" width="7" height="9" rx="1" />
+                <rect x="3" y="16" width="7" height="5" rx="1" />
+              </svg>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item" data-view="transactions">
+            <a href="#">
+              <!-- Transactions Icon -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+              <span>Transacciones</span>
+            </a>
+          </li>
+          <li class="nav-item" data-view="budgets">
+            <a href="#">
+              <!-- Budgets Icon -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <line x1="12" y1="4" x2="12" y2="20" />
+                <line x1="2" y1="10" x2="22" y2="10" />
+              </svg>
+              <span>Presupuestos</span>
+            </a>
+          </li>
+          <li class="nav-item" data-view="hucha">
+            <a href="#">
+              <!-- Piggy Bank SVG Icon -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 5c-1.5 0-2.8 1.4-3 2-2.5-.5-5.3-.5-7.8 0C8 6.4 6.6 5 5 5c-2 0-3 1.5-3 3.5 0 2.8 1.8 4.8 3.5 5.5.5 1.5 1.5 3 3.5 3h6c2 0 3-1.5 3.5-3 1.7-.7 3.5-2.7 3.5-5.5 0-2-1-3.5-3-3.5z" />
+                <path d="M12 2v3M9 13h6" />
+              </svg>
+              <span>Mi Hucha</span>
+            </a>
+          </li>
+          <li class="nav-item" data-view="perfil">
+            <a href="#">
+              <!-- Profile/User SVG Icon -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <span>Mi Perfil</span>
+            </a>
+          </li>
+          <li class="nav-item" data-view="settings">
+            <a href="#">
+              <!-- Settings Icon -->
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+              </svg>
+              <span>Configuración</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Profile Container -->
+      <div class="user-profile">
+        <div class="profile-avatar">
+          <span class="avatar-text">AS</span>
+        </div>
+        <div class="profile-info">
+          <h4 class="profile-name">Alejandro Sanz</h4>
+          <span class="profile-plan">Socio Premium</span>
+        </div>
+        <button class="logout-btn" title="Cerrar sesión">
+          <!-- Logout Icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+          </svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- Mobile Header / Top Bar (Shown on small screens only) -->
+      <div class="mobile-top-bar">
+        <button class="mobile-menu-toggle" id="menuToggle">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <div class="brand-mobile">
+          <svg class="brand-logo" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="18" height="18" rx="5" fill="url(#mobileBrandGradient)" />
+            <path d="M12 7V17M12 7L9 10M12 7L15 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="mobileBrandGradient" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366f1" />
+                <stop offset="1" stop-color="#4f46e5" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="brand-name">FinTrack</span>
+        </div>
+        <div class="profile-avatar-small">AS</div>
+      </div>
+
+      <!-- Header Section -->
+      <header class="main-header">
+        <div class="header-welcome">
+          <h1 id="greeting">¡Hola, Alejandro!</h1>
+          <p class="header-subtitle" id="current-date">Cargando fecha...</p>
+        </div>
+        <div class="header-actions">
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input type="text" id="search-input" placeholder="Buscar transacción...">
+          </div>
+          <button class="notification-btn" title="Notificaciones">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            <span class="notification-badge"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- View: Dashboard -->
+      <div id="view-dashboard" class="view-section active">
+        <!-- Summary Cards -->
+        <section class="summary-cards">
+          
+          <!-- Balance Card -->
+          <div class="card card-balance" id="balance-card">
+            <div class="card-header-wrapper">
+              <div class="card-icon balance-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="6" width="20" height="12" rx="2" />
+                  <circle cx="12" cy="12" r="2" />
+                  <path d="M6 12h.01M18 12h.01" />
+                </svg>
+              </div>
+              <span class="card-title">Balance Total</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-value" id="total-balance">0,00 €</h2>
+              <div class="card-meta">
+                <span class="meta-label">Fondos Netos Disponibles</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Income Card -->
+          <div class="card card-income">
+            <div class="card-header-wrapper">
+              <div class="card-icon income-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 5v14M19 12l-7 7-7-7" />
+                </svg>
+              </div>
+              <span class="card-title">Ingresos Totales</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-value" id="total-income">0,00 €</h2>
+              <div class="card-meta text-success">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 19V5M5 12l7-7 7 7" />
+                </svg>
+                <span>Flujo positivo de dinero</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expense Card -->
+          <div class="card card-expense">
+            <div class="card-header-wrapper">
+              <div class="card-icon expense-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 19V5M5 12l7-7 7-7" />
+                </svg>
+              </div>
+              <span class="card-title">Gastos Totales</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-value" id="total-expenses">0,00 €</h2>
+              <div class="card-meta text-danger">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 5v14M5 12l7 7 7 7" />
+                </svg>
+                <span>Consumos registrados</span>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- Main Columns Grid -->
+        <div class="dashboard-grid">
+          
+          <!-- Left Column: Transaction Input Form -->
+          <div class="grid-column form-column">
+            <section class="card form-card">
+              <div class="card-title-container">
+                <h2>Registrar Transacción</h2>
+                <p class="card-desc-subtitle">Agrega un nuevo flujo financiero a tu balance</p>
+              </div>
+              
+              <form id="transaction-form" novalidate>
+                
+                <!-- Transaction Type Selector -->
+                <div class="form-group">
+                  <label class="form-label">Tipo de movimiento</label>
+                  <div class="type-toggle-group">
+                    <label class="type-option income active" id="label-income">
+                      <input type="radio" name="transaction-type" value="ingreso" checked>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 5v14M19 12l-7 7-7-7" />
+                      </svg>
+                      <span>Ingreso</span>
+                    </label>
+                    <label class="type-option expense" id="label-expense">
+                      <input type="radio" name="transaction-type" value="gasto">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 19V5M5 12l7-7 7 7" />
+                      </svg>
+                      <span>Gasto</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Description Field -->
+                <div class="form-group">
+                  <label for="desc-input" class="form-label">Descripción</label>
+                  <div class="input-with-icon">
+                    <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                    </svg>
+                    <input type="text" id="desc-input" placeholder="Ej. Nómina, Compra Mercadona..." required autocomplete="off">
+                  </div>
+                  <span class="error-message" id="desc-error">Este campo es requerido</span>
+                </div>
+
+                <!-- Amount Field -->
+                <div class="form-group">
+                  <label for="amount-input" class="form-label">Importe (€)</label>
+                  <div class="input-with-icon">
+                    <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="1" x2="12" y2="23" />
+                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                    <input type="number" id="amount-input" step="0.01" min="0.01" placeholder="Ej. 1250.00" required>
+                  </div>
+                  <span class="error-message" id="amount-error">Ingresa un valor válido mayor que cero</span>
+                </div>
+
+                <!-- Category Field -->
+                <div class="form-group">
+                  <label for="category-input" class="form-label">Categoría</label>
+                  <div class="input-with-icon">
+                    <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                    </svg>
+                    <select id="category-input" required>
+                      <option value="" disabled selected>Selecciona una categoría</option>
+                      <option value="nomina">Nómina / Salario</option>
+                      <option value="alimentacion">Alimentación</option>
+                      <option value="transporte">Transporte / Vehículo</option>
+                      <option value="entretenimiento">Entretenimiento / Ocio</option>
+                      <option value="servicios">Servicios / Facturas</option>
+                      <option value="vivienda">Vivienda / Alquiler</option>
+                      <option value="otros">Otros</option>
+                    </select>
+                  </div>
+                  <span class="error-message" id="category-error">Selecciona una categoría</span>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-primary" id="submit-btn">
+                  <span>Añadir Registro</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                </button>
+
+              </form>
+            </section>
+          </div>
+
+          <!-- Right Column: Transactions History -->
+          <div class="grid-column list-column">
+            <section class="card list-card">
+              
+              <!-- List Header with Filter Tabs -->
+              <div class="list-header">
+                <div class="list-header-titles">
+                  <h2>Historial de Actividad</h2>
+                  <p class="card-desc-subtitle" id="record-count">Mostrando 0 registros</p>
+                </div>
+                <div class="filter-tabs">
+                  <button class="filter-tab active" data-filter="all">Todos</button>
+                  <button class="filter-tab" data-filter="ingreso">Ingresos</button>
+                  <button class="filter-tab" data-filter="gasto">Gastos</button>
+                </div>
+              </div>
+
+              <!-- Transactions Items Container -->
+              <div class="transactions-container" id="transactions-container">
+                <!-- Rendered via JS -->
+              </div>
+
+              <!-- Empty State Graphic -->
+              <div class="empty-state" id="empty-state">
+                <div class="empty-state-icon">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-6l-3 9L9 3l-3 9H2" />
+                  </svg>
+                </div>
+                <h3>Historial sin movimientos</h3>
+                <p>Comienza a registrar tus finanzas utilizando el formulario del panel izquierdo.</p>
+              </div>
+
+            </section>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- View: Transactions (Full Screen) -->
+      <div id="view-transactions" class="view-section">
+        <div class="view-header">
+          <div class="view-header-title">
+            <h2>Todas las Transacciones</h2>
+            <p class="view-header-subtitle" id="transactions-view-count">Mostrando 0 transacciones</p>
+          </div>
+          <div class="view-header-actions">
+            <!-- Filter by category select -->
+            <div class="select-wrapper">
+              <select id="transactions-category-filter">
+                <option value="all">Todas las categorías</option>
+                <option value="nomina">Nómina / Salario</option>
+                <option value="alimentacion">Alimentación</option>
+                <option value="transporte">Transporte / Vehículo</option>
+                <option value="entretenimiento">Entretenimiento / Ocio</option>
+                <option value="servicios">Servicios / Facturas</option>
+                <option value="vivienda">Vivienda / Alquiler</option>
+                <option value="otros">Otros</option>
+              </select>
+            </div>
+            <!-- Type filter -->
+            <div class="filter-tabs" id="transactions-type-tabs">
+              <button class="filter-tab active" data-filter="all">Todos</button>
+              <button class="filter-tab" data-filter="ingreso">Ingresos</button>
+              <button class="filter-tab" data-filter="gasto">Gastos</button>
+            </div>
+            <button class="btn-primary" id="open-add-transaction-modal">
+              <span>Nueva Transacción</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="card full-width-card">
+          <div class="transactions-table-container">
+            <div class="transactions-table-header">
+              <div class="col-description">Descripción</div>
+              <div class="col-category">Categoría</div>
+              <div class="col-date">Fecha</div>
+              <div class="col-amount">Importe</div>
+              <div class="col-actions">Acciones</div>
+            </div>
+            <div class="transactions-table-body" id="view-transactions-list">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+          
+          <div class="empty-state" id="transactions-empty-state">
+            <div class="empty-state-icon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-6l-3 9L9 3l-3 9H2" />
+              </svg>
+            </div>
+            <h3>No se encontraron transacciones</h3>
+            <p>Ajusta los filtros o añade un nuevo movimiento para comenzar.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- View: Budgets -->
+      <div id="view-budgets" class="view-section">
+        <div class="view-header">
+          <div class="view-header-title">
+            <h2>Presupuestos Mensuales</h2>
+            <p class="view-header-subtitle">Controla tus límites de gasto por categoría</p>
+          </div>
+          <button class="btn-primary" id="open-set-budget-modal">
+            <span>Configurar Presupuesto</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <line x1="12" y1="4" x2="12" y2="20" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="budgets-summary-row">
+          <div class="card budget-summary-card">
+            <span class="card-meta">Total Presupuestado</span>
+            <h3 id="budget-total-amount">0,00 €</h3>
+          </div>
+          <div class="card budget-summary-card">
+            <span class="card-meta">Total Gastado</span>
+            <h3 id="budget-spent-amount">0,00 €</h3>
+          </div>
+          <div class="card budget-summary-card">
+            <span class="card-meta">Ahorro Estimado</span>
+            <h3 id="budget-savings-amount">0,00 €</h3>
+          </div>
+        </div>
+
+        <div class="budgets-grid" id="budgets-grid">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- View: Settings -->
+      <div id="view-settings" class="view-section">
+        <div class="view-header">
+          <div class="view-header-title">
+            <h2>Configuración de la Cuenta</h2>
+            <p class="view-header-subtitle">Personaliza tu perfil y preferencias de la aplicación</p>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          
+          <!-- Card: Profile Settings -->
+          <div class="card settings-card">
+            <div class="settings-card-header">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <h3>Perfil de Usuario</h3>
+            </div>
+            <form id="settings-profile-form" class="settings-form">
+              <div class="form-group">
+                <label for="settings-name-input" class="form-label">Nombre del usuario</label>
+                <div class="input-with-icon">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  <input type="text" id="settings-name-input" value="Alejandro Sanz" required>
+                </div>
+              </div>
+              <button type="submit" class="btn-primary">Guardar Perfil</button>
+            </form>
+          </div>
+
+          <!-- Card: Preferences Settings -->
+          <div class="card settings-card">
+            <div class="settings-card-header">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+              </svg>
+              <h3>Preferencias Generales</h3>
+            </div>
+            <form id="settings-preferences-form" class="settings-form">
+              <div class="form-group">
+                <label for="settings-currency-select" class="form-label">Moneda principal</label>
+                <div class="input-with-icon">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23" />
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                  </svg>
+                  <select id="settings-currency-select">
+                    <option value="EUR">Euro (€)</option>
+                    <option value="USD">Dólar (US$)</option>
+                    <option value="GBP">Libra (£)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="settings-goal-input" class="form-label">Meta de ahorro mensual</label>
+                <div class="input-with-icon">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23" />
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                  </svg>
+                  <input type="number" id="settings-goal-input" min="0" placeholder="Ej. 500">
+                </div>
+              </div>
+              <button type="submit" class="btn-primary">Guardar Preferencias</button>
+            </form>
+          </div>
+
+          <!-- Card: Data Management -->
+          <div class="card settings-card data-management-card">
+            <div class="settings-card-header text-danger">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></polyline>
+              </svg>
+              <h3>Gestión de Datos y Copias</h3>
+            </div>
+            <p class="settings-description">Exporta tu historial financiero en formato JSON o reinicia el almacenamiento para empezar de cero.</p>
+            <div class="settings-actions-row">
+              <button class="btn-secondary" id="settings-export-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+                <span>Exportar Datos (JSON)</span>
+              </button>
+              <button class="btn-danger-outline" id="settings-reset-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></polyline>
+                </svg>
+                <span>Restablecer Aplicación</span>
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- View: Mi Hucha -->
+      <div id="view-hucha" class="view-section hidden">
+        <div class="view-header">
+          <div class="view-header-title">
+            <h2>Mi Hucha de Ahorro</h2>
+            <p class="view-header-subtitle">Gestiona tus metas y guarda dinero para tus proyectos</p>
+          </div>
+        </div>
+
+        <div class="hucha-grid">
+          <!-- Left: Goal status and Progress bar -->
+          <div class="card hucha-card">
+            <div class="hucha-info-wrapper">
+              <h3 class="hucha-meta-title" id="hucha-meta-name">Viaje de Ensueño</h3>
+              <p class="hucha-meta-subtitle">Objetivo definido de ahorro bancario</p>
+              
+              <div class="hucha-progress-section">
+                <div class="hucha-savings-status">
+                  <span class="hucha-amount-saved" id="hucha-current-amount">0,00 €</span>
+                  <span class="hucha-amount-goal" id="hucha-target-amount">de 1.000,00 €</span>
+                </div>
+                <div class="hucha-progress-bar-container">
+                  <div class="hucha-progress-bar-fill" id="hucha-progress-bar"></div>
+                </div>
+                <div class="hucha-progress-percentage-label">
+                  <span class="hucha-percentage" id="hucha-percentage-text">0% completado</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Quick update meta form -->
+            <form id="hucha-meta-form" class="settings-form" novalidate>
+              <div class="hucha-actions-btn-group" style="grid-template-columns: 1.5fr 1fr; gap: 0.5rem; align-items: flex-end;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label for="hucha-goal-name-input" class="form-label" style="font-size: 0.75rem;">Nombre de la Meta</label>
+                  <div class="input-with-icon">
+                    <input type="text" id="hucha-goal-name-input" placeholder="Ej. Viaje" value="Viaje" required>
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label for="hucha-goal-target-input" class="form-label" style="font-size: 0.75rem;">Meta (€)</label>
+                  <div class="input-with-icon">
+                    <input type="number" id="hucha-goal-target-input" placeholder="Ej. 1000" value="1000" min="1" required>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.5rem 1rem; font-size: 0.8rem;">Actualizar Meta</button>
+            </form>
+          </div>
+
+          <!-- Right: Contribute and Withdraw forms -->
+          <div class="card">
+            <div class="card-title-container">
+              <h2>Operaciones de la Hucha</h2>
+              <p class="card-desc-subtitle">Transfiere fondos entre tu balance disponible y tu hucha</p>
+            </div>
+            
+            <form id="hucha-operation-form" class="hucha-form" novalidate>
+              <div class="form-group">
+                <label for="hucha-amount-input" class="form-label">Cantidad a transferir (€)</label>
+                <div class="input-with-icon">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23" />
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                  </svg>
+                  <input type="number" id="hucha-amount-input" step="0.01" min="0.01" placeholder="0.00" required>
+                </div>
+                <span class="error-message" id="hucha-amount-error">Ingresa un importe mayor a cero</span>
+              </div>
+              
+              <div class="hucha-actions-btn-group">
+                <button type="button" class="btn-success" id="btn-hucha-deposit">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                  <span>Aportar</span>
+                </button>
+                <button type="button" class="btn-danger" id="btn-hucha-withdraw">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                  <span>Retirar</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- View: Mi Perfil -->
+      <div id="view-perfil" class="view-section hidden">
+        <div class="view-header">
+          <div class="view-header-title">
+            <h2>Mi Perfil Bancario</h2>
+            <p class="view-header-subtitle">Información del titular y detalles de la cuenta</p>
+          </div>
+        </div>
+
+        <div class="perfil-grid">
+          <!-- Left: Virtual card component -->
+          <div class="card-bank-container">
+            <div class="virtual-bank-card">
+              <div class="card-top">
+                <div class="card-chip"></div>
+                <div class="card-logo">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: white; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+                    <rect x="3" y="3" width="18" height="18" rx="5" />
+                    <path d="M12 7V17M12 7L9 10M12 7L15 10" />
+                  </svg>
+                  <span>FinTrack</span>
+                  <div class="card-logo-dot"></div>
+                </div>
+              </div>
+              <div class="card-middle">
+                <span class="card-label">Número de Cuenta (IBAN)</span>
+                <div class="card-number" id="card-iban-display">ES00 0000 0000 00 0000000000</div>
+              </div>
+              <div class="card-bottom">
+                <div class="card-holder">
+                  <span class="card-label">Titular de la Cuenta</span>
+                  <div class="card-holder-name" id="card-holder-name-display">Nombre del Usuario</div>
+                </div>
+                <div class="card-expiry">
+                  <span class="card-label">Vence</span>
+                  <div class="card-expiry-date">12/31</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Profile update form -->
+          <div class="card">
+            <div class="card-title-container">
+              <h2>Detalles de la Cuenta</h2>
+              <p class="card-desc-subtitle">Actualiza tu información personal de cliente</p>
+            </div>
+            
+            <form id="profile-update-form" class="settings-form" novalidate>
+              <div class="form-group">
+                <label for="profile-name-input" class="form-label">Nombre del Titular</label>
+                <div class="input-with-icon">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  <input type="text" id="profile-name-input" placeholder="Nombre completo" required>
+                </div>
+                <span class="error-message" id="profile-name-error">El nombre es requerido</span>
+              </div>
+              
+              <div class="form-group">
+                <label for="profile-email-input" class="form-label">Correo Electrónico</label>
+                <div class="input-with-icon">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                  <input type="email" id="profile-email-input" placeholder="correo@ejemplo.com" required>
+                </div>
+                <span class="error-message" id="profile-email-error">Ingresa un correo electrónico válido</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Código IBAN Bancario</label>
+                <div class="input-with-icon">
+                  <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <line x1="12" y1="4" x2="12" y2="20" />
+                  </svg>
+                  <input type="text" id="profile-iban-readonly" readonly style="background-color: var(--bg-primary); cursor: not-allowed; color: var(--text-secondary);">
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary" style="margin-top: 1rem;">Guardar Cambios</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Modal: Registrar Transacción -->
+  <div class="modal-backdrop" id="add-transaction-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Registrar Transacción</h3>
+        <button class="modal-close-btn" id="close-add-transaction-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="modal-transaction-form" novalidate>
+          <div class="form-group">
+            <label class="form-label">Tipo de movimiento</label>
+            <div class="type-toggle-group">
+              <label class="type-option income active" id="modal-label-income">
+                <input type="radio" name="modal-transaction-type" value="ingreso" checked>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 5v14M19 12l-7 7-7-7" />
+                </svg>
+                <span>Ingreso</span>
+              </label>
+              <label class="type-option expense" id="modal-label-expense">
+                <input type="radio" name="modal-transaction-type" value="gasto">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 19V5M5 12l7-7 7 7" />
+                </svg>
+                <span>Gasto</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="modal-desc-input" class="form-label">Descripción</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+              </svg>
+              <input type="text" id="modal-desc-input" placeholder="Ej. Nómina, Compra Mercadona..." required autocomplete="off">
+            </div>
+            <span class="error-message" id="modal-desc-error">Este campo es requerido</span>
+          </div>
+
+          <div class="form-group">
+            <label for="modal-amount-input" class="form-label">Importe</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23" />
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+              <input type="number" id="modal-amount-input" step="0.01" min="0.01" placeholder="Ej. 1250.00" required>
+            </div>
+            <span class="error-message" id="modal-amount-error">Ingresa un valor válido mayor que cero</span>
+          </div>
+
+          <div class="form-group">
+            <label for="modal-category-input" class="form-label">Categoría</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+              </svg>
+              <select id="modal-category-input" required>
+                <option value="" disabled selected>Selecciona una categoría</option>
+                <option value="nomina">Nómina / Salario</option>
+                <option value="alimentacion">Alimentación</option>
+                <option value="transporte">Transporte / Vehículo</option>
+                <option value="entretenimiento">Entretenimiento / Ocio</option>
+                <option value="servicios">Servicios / Facturas</option>
+                <option value="vivienda">Vivienda / Alquiler</option>
+                <option value="otros">Otros</option>
+              </select>
+            </div>
+            <span class="error-message" id="modal-category-error">Selecciona una categoría</span>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">
+            <span>Añadir Registro</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Configurar Presupuesto -->
+  <div class="modal-backdrop" id="set-budget-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Configurar Presupuesto Mensual</h3>
+        <button class="modal-close-btn" id="close-set-budget-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="budget-form" novalidate>
+          <div class="form-group">
+            <label for="budget-category-input" class="form-label">Categoría</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+              </svg>
+              <select id="budget-category-input" required>
+                <option value="" disabled selected>Selecciona una categoría</option>
+                <option value="alimentacion">Alimentación</option>
+                <option value="transporte">Transporte / Vehículo</option>
+                <option value="entretenimiento">Entretenimiento / Ocio</option>
+                <option value="servicios">Servicios / Facturas</option>
+                <option value="vivienda">Vivienda / Alquiler</option>
+                <option value="otros">Otros</option>
+              </select>
+            </div>
+            <span class="error-message" id="budget-category-error">Selecciona una categoría</span>
+          </div>
+
+          <div class="form-group">
+            <label for="budget-limit-input" class="form-label">Límite Mensual</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23" />
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+              <input type="number" id="budget-limit-input" step="1" min="0" placeholder="Ej. 300" required>
+            </div>
+            <span class="error-message" id="budget-limit-error">Ingresa un límite válido (mayor o igual a 0)</span>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">
+            <span>Guardar Presupuesto</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container para alertas flotantes -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- JavaScript Application -->
+  <script src="app.js"></script>
+</body>
+</html>
